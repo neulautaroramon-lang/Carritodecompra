@@ -1,0 +1,11 @@
+warning: in the working copy of 'Contacto.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'carrito.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'detalles.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'styles.css', LF will be replaced by CRLF the next time Git touches it
+ Contacto.html |   97 [32m++[m[31m---[m
+ carrito.html  |   93 [32m+++[m[31m--[m
+ detalles.html |   67 [32m++[m[31m--[m
+ index.html    |   78 [32m++[m[31m--[m
+ styles.css    | 1242 [32m++++++[m[31m---------------------------------------------------[m
+ 5 files changed, 284 insertions(+), 1293 deletions(-)

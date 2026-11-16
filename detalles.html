@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Producto — Academia de Fútbol Elite</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle · Primer Toque Centro Formativo</title>
+  <meta name="description" content="Inscribite en los programas de entrenamiento de la Primer Toque Centro Formativo, Pilar.">
+  <link rel="icon" href="img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>⚽ Academia de Fútbol Elite</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="carrito.html">Carrito</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main id="boxproductos">
-    </main>
-
-    <footer>
-        <div>
-            <h2>⚽ Academia de Fútbol Elite</h2>
-            <p>Formando jugadores desde 2015</p>
-        </div>
-        <div>
-            <p>📍 Pilar, Buenos Aires</p>
-            <p>📞 +54 9 11 26544906</p>
-        </div>
-        <div>
-            <p>Todos los derechos reservados — 2026</p>
-        </div>
-    </footer>
-
-    <script src="datelles.js"></script>
+  <header class="barra">
+    <a href="index.html" class="marca"><img src="img/logo.png" alt="Primer Toque"><span>PRIMER<b>TOQUE</b></span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Programas</a></li>
+        <li><a href="historial.html">Historial</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="carrito.html" class="icono-carrito" aria-label="Carrito">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          <span id="contadorcarrito">0</span></a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="contenedor">
+    <a href="index.html" class="volver">← Volver a programas</a>
+    <section id="boxdetalle" class="detalle"></section>
+  </main>
+  <footer class="pie">
+    <div><h2>PRIMER<b>TOQUE</b></h2><p>Formando jugadores desde 2015</p></div>
+    <div><p>📍 Pilar, Buenos Aires</p><p>📞 +54 9 11 2654-4906</p></div>
+    <div><p>© 2026 Primer Toque Centro Formativo</p></div>
+  </footer>
+  <script type="module" src="js/detalles.js"></script>
 </body>
 </html>
