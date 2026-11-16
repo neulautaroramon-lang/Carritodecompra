@@ -32,23 +32,5 @@ js/                   Lógica JavaScript
 img/                  Imágenes
 ```
 
-## Cómo conectar Firebase
-1. Entrar a https://console.firebase.google.com y crear un proyecto.
-2. *Build → Firestore Database → Crear base de datos* (modo prueba).
-3. *Configuración del proyecto → Tus apps → Web (</>)* y copiar el objeto `firebaseConfig`.
-4. Pegarlo en `js/firebase-config.js`.
-5. Abrir `subir-productos.html` y tocar **Subir programas** (crea la colección `productos`).
-6. Opcional: copiar las reglas de `firestore.rules` en *Firestore → Reglas*.
-
-## Cómo probarlo localmente
-Como usa módulos de JavaScript, hay que abrirlo con un servidor (no con doble clic):
-- VS Code: extensión **Live Server** → clic derecho en `index.html` → *Open with Live Server*.
-- o en la terminal: `npx serve .`
-
-## Despliegue en Vercel
-1. Subir el proyecto a GitHub.
-2. En https://vercel.com → *Add New → Project* → importar el repositorio.
-3. Framework preset: **Other**. Sin comando de build. *Deploy*.
-
 ## Autores
 Grupo — Academia de Fútbol Elite · 2026
