@@ -27,10 +27,15 @@ detalles.html         Detalle y cantidad
 carrito.html          Tabla del carrito, totales y finalizar compra
 historial.html        Historial de compras
 contacto.html         Formulario de contacto
-subir-productos.html  Herramienta para cargar los programas en Firestore (usar una vez)
+subir-productos.html  Carga inicial de programas (requiere habilitar escritura temporalmente)
+firestore.rules       Reglas de seguridad de Firestore
 js/                   Lógica JavaScript
 img/                  Imágenes
 ```
+
+## Stock y seguridad
+- Al finalizar la compra se descuentan las vacantes en Firestore con una transacción: si no alcanzan, la compra no se realiza.
+- Las reglas sólo permiten leer los programas y bajar su stock (nunca subirlo, crearlos ni borrarlos). Las compras sólo se pueden crear.
 
 ## Autores
 Grupo — Academia de Fútbol Elite · 2026

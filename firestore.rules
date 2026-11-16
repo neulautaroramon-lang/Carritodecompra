@@ -1,9 +1,27 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Cualquiera puede leer los programas (la tienda es pública)
-    match /productos/{id} { allow read: if true; allow write: if true; } // cambiar write a false después de cargarlos
-    // Las compras sólo se pueden crear
-    match /compras/{id} { allow create: if true; }
+
+    // Programas: cualquiera puede leerlos.
+    // Nadie puede crearlos ni borrarlos desde la web (se cargan desde la consola de Firebase).
+    // La única modificación permitida es DESCONTAR stock al comprar:
+    // sólo cambia el campo "stock", baja y nunca queda negativo.
+    match /productos/{id} {
+      allow read: if true;
+      allow create, delete: if false;
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stock'])
+                    && request.resource.data.stock is int
+                    && request.resource.data.stock >= 0
+                    && request.resource.data.stock < resource.data.stock;
+    }
+
+    // Compras: sólo se pueden crear (no leer, editar ni borrar) y con datos válidos.
+    match /compras/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['fecha', 'productos', 'total'])
+                    && request.resource.data.total is number
+                    && request.resource.data.total > 0
+                    && request.resource.data.productos is list
+                    && request.resource.data.productos.size() > 0;
+    }
   }
 }

@@ -13,6 +13,6 @@ document.getElementById("btnsubir").addEventListener("click", async () => {
     }
     log.textContent += "\nListo: los 10 programas están en Firestore (colección 'productos').";
   } catch (e) {
-    log.textContent += "\nError: " + e.message + "\n¿Las reglas de Firestore permiten escribir?";
+    log.textContent += "\nError: " + e.message + "\nLas reglas no permiten crear programas desde la web (por seguridad). Para cargarlos, habilitá la escritura temporalmente en firestore.rules o cargalos desde la consola de Firebase, y después volvé a publicar las reglas.";
   }
 });

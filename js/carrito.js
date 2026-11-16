@@ -1,5 +1,5 @@
 import { db, firebaseConfigurado } from "./firebase-config.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { collection, doc, runTransaction } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 import { leerCarrito, guardarCarrito, formatoPrecio, aviso } from "./comun.js";
 
 const lista = document.getElementById("lista");
@@ -57,15 +57,34 @@ const finalpago = async () => {
     productos: carrito,
     total: calcularTotal(carrito)
   };
+  // Se descuenta el stock y se guarda la compra en Firebase en una sola transacción:
+  // si a algún programa no le alcanzan las vacantes, no se compra nada.
+  if (firebaseConfigurado) {
+    boton.disabled = true;
+    try {
+      await runTransaction(db, async (tx) => {
+        const refs = carrito.map(p => doc(db, "productos", String(p.id)));
+        const docs = await Promise.all(refs.map(r => tx.get(r)));
+        docs.forEach((d, i) => {
+          const disponible = d.exists() && Number.isInteger(d.data().stock) ? d.data().stock : 0;
+          if (disponible < carrito[i].cantidad) {
+            throw new Error(`No hay vacantes suficientes para "${carrito[i].nombre}" (quedan ${disponible}).`);
+          }
+        });
+        docs.forEach((d, i) => tx.update(refs[i], { stock: Number(d.data().stock) - carrito[i].cantidad }));
+        tx.set(doc(collection(db, "compras")), compra);
+      });
+    } catch (e) {
+      console.error("No se pudo completar la compra", e);
+      aviso(e.message.startsWith("No hay vacantes") ? e.message : "No se pudo completar la compra. Probá de nuevo.", "error");
+      boton.disabled = false;
+      return;
+    }
+  }
   // Historial de compras en localStorage
   const historial = JSON.parse(localStorage.getItem("historial")) || [];
   historial.unshift(compra);
   localStorage.setItem("historial", JSON.stringify(historial));
-  // También se guarda la compra en Firebase (colección "compras")
-  if (firebaseConfigurado) {
-    try { await addDoc(collection(db, "compras"), compra); }
-    catch (e) { console.error("No se pudo guardar la compra en Firebase", e); }
-  }
   guardarCarrito([]);
   cargar();
   document.getElementById("modaltotal").textContent = formatoPrecio(compra.total);
